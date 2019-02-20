@@ -1,5 +1,10 @@
 import numpy as np
 import pandas as pd
+import nltk as nltk
+from nltk.util import ngrams
+import re as re
+
+
 #Budujemy one-hot vectors - wektory stanowiące numeryczną reprezentację każdego słowa
 
 sentence=sentence = """Thomas Jefferson began building Monticello at the age of 26."""
@@ -85,4 +90,14 @@ for i,sent in enumerate(sentences.split('\n')):
 #utworz dataframe na podstawie corpus, Nan zamień na 0 (fillna),asType(int) domyślnie byłoby float, transponuj T
 df = pd.DataFrame.from_records(corpus).fillna(0).astype(int).T
 #df.columns[:10] - pierwszych 10 kolumn
-print(df[df.columns[:10]])
+#print(df[df.columns[:10]])
+
+
+sentence = """Thomas Jefferson began building Monticello at the age of 26."""
+pattern = re.compile(r"([-\s.,;!?])+")
+tokens = pattern.split(sentence)
+tokens = [x for x in tokens if x and x not in '- \t\n.,;!?']
+
+
+print(list(ngrams(tokens, 2)))
+print(list(ngrams(tokens, 3)))
