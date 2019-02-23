@@ -1,5 +1,5 @@
 import pandas as pd
-
+'''
 def daj_iloczyn_kartezjanski(zbiorA:pd.Series,zbiorB:pd.Series):
     # tworze indeks dwuwymiarowy
     indeks_dwuwymiarowy = pd.MultiIndex.from_product([zbiorA, zbiorB],
@@ -8,6 +8,7 @@ def daj_iloczyn_kartezjanski(zbiorA:pd.Series,zbiorB:pd.Series):
     # lacze kolumny
     wynik = pd.Series(wynik_mnozenia['a'] + ' ' + wynik_mnozenia['b'])
     return wynik
+'''
 
 def daj_dwuwymiarowy_iloczyn_kartezjanski(zbiorA:pd.Series,zbiorB:pd.Series):
     # tworze indeks dwuwymiarowy
