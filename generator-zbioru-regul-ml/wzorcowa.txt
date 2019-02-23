@@ -1,0 +1,1 @@
+<START:regula_start> jeżeli <END> <START:porowanie_OL> xxx <END> <START:operator_porownania> jest mniejsza od <END> <START:porowanie_OP> xxx <END> <START:regula_stop> wtedy <END> .
