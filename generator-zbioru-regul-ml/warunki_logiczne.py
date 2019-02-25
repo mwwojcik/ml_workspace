@@ -5,16 +5,9 @@ from narzedzia import podaj_dwuwymiarowy_iloczyn_kartezjanski
 
 OPERATORY_ZAPRZECZENIA=pd.Series(['nie'])
 
-OPERATORY_POROWNANIA_PODSTAWOWE = pd.Series(['jest równy', 'jest równa', 'jest równe'
-                                                , 'jest większy lub równy', "jest większa lub równa"
-                                                , 'jest większe lub równe'
-                                                , 'jest mniejszy lub równy', 'jest mniejsza lub równa'
-                                                , 'jest mniejsze lub równe'])
+OPERATORY_POROWNANIA_PODSTAWOWE = pd.Series(['jest równy','jest większy lub równy', 'jest mniejszy lub równy'])
 
-OPERATORY_POROWNANIA_STOPNIOWANE = pd.Series(['jest większy', 'jest większa', 'jest większe'
-                                                 , 'jest mniejszy', 'jest mniejsza', 'jest mniejsze'
-                                                 , 'jest różny', 'jest różna', 'jest różne'
-                                              ])
+OPERATORY_POROWNANIA_STOPNIOWANE = pd.Series(['jest większy', 'jest mniejszy', 'jest różny'])
 OPERATORY_STOPNIOWANIA = pd.Series(['niż', 'od'])
 operatory_stopniowane=podaj_dwuwymiarowy_iloczyn_kartezjanski(OPERATORY_POROWNANIA_STOPNIOWANE, OPERATORY_STOPNIOWANIA)
 #splaszczenie
