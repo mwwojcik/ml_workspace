@@ -30,3 +30,25 @@ print(lexicon)
 '''
 [',', '.', 'and', 'as', 'faster', 'get', 'got', 'hairy', 'harry', 'home', 'is', 'jill', 'not', 'store', 'than', 'the', 'to', 'would']
 '''
+#dla kazdego dokumentu budujemy wektor, o dlugosci leksykonu (18),dla kazdego tokenu wstawiamy 0
+from collections import OrderedDict
+from collections import Counter
+
+zero_vector = OrderedDict((token, 0) for token in lexicon)
+print(zero_vector)
+
+import copy
+doc_vectors = []
+for doc in docs:
+     #kazdy dokument ma swoj wektor stworzony na podstawie leksykonu
+     vec = copy.copy(zero_vector)
+     tokens = tokenizer.tokenize(doc.lower())
+     #zliczam ilosc wystapien danego tokena w kazdym z dokumentow
+     token_counts = Counter(tokens)
+     #uzupelniam wektor stworzony dla dokumentu na podstawie leksykonu
+     for key, value in token_counts.items():
+         vec[key] = value / len(lexicon)
+     #wyliczony wektor dodaje do tablicy wektorow
+     doc_vectors.append(vec)
+
+print(doc_vectors)
