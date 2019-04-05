@@ -23,6 +23,8 @@ zaprzeczenia_wynik=pd.Series(zaprzeczenia['a']+' '+zaprzeczenia['b'])
 
 wynik=wynik.append(zaprzeczenia_wynik,ignore_index=True)
 
+print(str(wynik))
+
 OPERATORY_LOGICZNE=pd.Series(["lub","oraz","i"])
 
 def utworz_warunki_laczone(warunki_pojedyncze:pd.Series):
