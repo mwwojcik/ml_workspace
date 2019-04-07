@@ -7,6 +7,8 @@
 != nie jest równy
 != nie jest równa
 != nie jest równe
+&& i
+&& oraz
 < jest mniejszy
 < jest mniejsza
 < jest mniejsze
@@ -19,6 +21,15 @@
 < jest mniejsza od
 < jest mniejsze niż
 < jest mniejsze od
+<= nie jest większy
+<= nie jest większa
+<= nie jest większe
+<= jest niewiększy
+<= jest niewiększa
+<= jest niewiększe
+<= jest nie większy
+<= jest nie większa
+<= jest nie większe
 == jest równy
 == jest równa
 == jest równe
@@ -31,9 +42,21 @@
 > jest większa od
 > jest większe niż
 > jest większe od
-<= nie jest większy
-<= nie jest większa
-<= nie jest większe
 >= nie jest mniejsza
 >= nie jest mniejszy
 >= nie jest mniejsze
+>= jest niemniejsza
+>= jest niemniejszy
+>= jest niemniejsze
+>= jest nie mniejsza
+>= jest nie mniejszy
+>= jest nie mniejsze
+SPRAWDZ_REGULE sprawdź regułę
+SPRAWDZ_REGULE sprawdzaj regułę
+WYSWIETL_KOMUNIKAT wyświetl komunikat
+WYSWIETL_KOMUNIKAT pokaż komunikat
+ZGLOS_BLAD zgłoś błąd
+ZGLOS_BLAD zgłoś błąd walidacji
+ZGLOS_BLAD raportuj błąd
+|| lub
+|| albo
