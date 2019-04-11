@@ -60,3 +60,15 @@ ZGLOS_BLAD zgłoś błąd walidacji
 ZGLOS_BLAD raportuj błąd
 || lub
 || albo
+!=null jest niepuste
+==null jest puste
+!=null ma wartość
+==null nie ma wartości
+!=null jest określone
+==null nie jest określone
+!=null jest doprecyzowane
+==null nie jest doprecyzowane
+!=null zostało wprowadzone
+==null nie zostało wprowadzone
+!=null zostało podane
+==null nie zostało podane

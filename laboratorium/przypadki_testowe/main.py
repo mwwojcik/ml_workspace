@@ -15,7 +15,7 @@ class Kategoria:
 def porzadek(kat:Kategoria):
     return kat.kategoria
 
-plik=open(os.path.join(script_dir,"kategoryzacja_reguly_probka_uczaca.reg"),"r")
+plik=open(os.path.join(script_dir,"kategoryzacja_reguly_probka_uczaca.reg"),"r",encoding="utf8")
 
 lista=[]
 
