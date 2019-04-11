@@ -46,7 +46,7 @@ def utworz_warunki_laczone(warunki_pojedyncze:pd.Series):
     operatory_logiczne_otagowane=pd.Series(OPERATORY_LOGICZNE.apply(lambda x:tagger.taguj(x,'operator_logiczny')))
     wynik_mnozenia=narzedzia.wylicz_iloczyn_kartezjanski([warunki_lewa_strona, operatory_logiczne_otagowane, warunki_prawa_strona],['a','b','c'])
     #splaszczam i wybieram losowo n elementow gdzie n to dlugosc wektora WE
-    return pd.Series(wynik_mnozenia['a']+' '+wynik_mnozenia['b']+' '+wynik_mnozenia['c']).sample(n=25*len(warunki_pojedyncze))
+    return pd.Series(wynik_mnozenia['a']+' '+wynik_mnozenia['b']+' '+wynik_mnozenia['c']).sample(n=20*len(warunki_pojedyncze))
 
 def utworz_warunki():
     warunki_pojedyncze_otagowane=pd.Series(tagger.taguj('xxx','porowanie_OL')+' '+wynik.apply(lambda x:tagger.taguj(x,'operator_porownania'))+' '+tagger.taguj('xxx','porowanie_OP'))
@@ -58,7 +58,7 @@ def utworz_warunki():
     print("warunki_czy_null_otagowane(ilosc_elem)" + str(len(warunki_czy_null_otagowane)))
     warunki_czy_null_laczone = utworz_warunki_laczone(warunki_czy_null_otagowane)
     print("warunki_czy_null_laczone(ilosc_elem)" + str(len(warunki_czy_null_laczone)))
-    warunki_razem=warunki_pojedyncze_otagowane.append(warunki_laczone_otagowane).append(warunki_czy_null_otagowane).append(warunki_czy_null_laczone)
+    warunki_razem=warunki_pojedyncze_otagowane.append(warunki_laczone_otagowane)#.append(warunki_czy_null_otagowane).append(warunki_czy_null_laczone)
     print("warunki_razem(ilosc_elem)" + str(len(warunki_razem)))
     return warunki_razem
 
