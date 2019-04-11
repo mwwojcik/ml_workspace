@@ -14,6 +14,8 @@ operatory_stopniowane=podaj_dwuwymiarowy_iloczyn_kartezjanski(OPERATORY_POROWNAN
 #splaszczenie
 wynik=pd.Series(operatory_stopniowane['a']+' '+operatory_stopniowane['b'])
 
+
+
 # dodaje operatory podstawowe
 wynik = wynik.append(OPERATORY_POROWNANIA_PODSTAWOWE,ignore_index=True)
 
@@ -33,7 +35,7 @@ def utworz_warunki_laczone(warunki_pojedyncze:pd.Series):
     operatory_logiczne_otagowane=pd.Series(OPERATORY_LOGICZNE.apply(lambda x:tagger.taguj(x,'operator_logiczny')))
     wynik_mnozenia=narzedzia.wylicz_iloczyn_kartezjanski([warunki_lewa_strona, operatory_logiczne_otagowane, warunki_prawa_strona],['a','b','c'])
     #splaszczam i wybieram losowo n elementow gdzie n to dlugosc wektora WE
-    return pd.Series(wynik_mnozenia['a']+' '+wynik_mnozenia['b']+' '+wynik_mnozenia['c']).sample(n=len(warunki_pojedyncze))
+    return pd.Series(wynik_mnozenia['a']+' '+wynik_mnozenia['b']+' '+wynik_mnozenia['c']).sample(n=10*len(warunki_pojedyncze))
 
 def utworz_warunki():
     warunki_pojedyncze_otagowane=pd.Series(tagger.taguj('xxx','porowanie_OL')+' '+wynik.apply(lambda x:tagger.taguj(x,'operator_porownania'))+' '+tagger.taguj('xxx','porowanie_OP'))
