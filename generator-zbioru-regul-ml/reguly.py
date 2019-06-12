@@ -21,7 +21,7 @@ def utworz_reguly(aFrazyWarunkow:pd.Series):
     #wynik = pd.Series(tagger.taguj(wynik_mnozenia['a'],'regula_start')+' '+wynik_mnozenia['b']+' '+tagger.taguj(wynik_mnozenia['c'],'regula_stop')+' '+wynik_mnozenia['d']+' '+tagger.taguj('w przeciwnym wypadku', 'w_przeciwnym_wypadku')+' '+wynik_mnozenia['d']+' .')
     wynik = pd.Series(
         tagger.taguj(wynik_mnozenia['a'], 'SK_SW') + ' ' + wynik_mnozenia['b'] + ' ' + tagger.taguj(
-            wynik_mnozenia['c'], 'SK_KW') + ' ' + wynik_mnozenia['d'] +' .')
+            wynik_mnozenia['c'], 'SK_KW') + ' ' + wynik_mnozenia['d'] +' .').sample(80000)
 
     print("Ilość rekordów w próbce przed dodaniem ELSE=>" + str(len(wynik)))
 
