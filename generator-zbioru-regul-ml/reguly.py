@@ -20,20 +20,20 @@ def utworz_reguly(aFrazyWarunkow:pd.Series):
     # wypłaszczenie
     #wynik = pd.Series(tagger.taguj(wynik_mnozenia['a'],'regula_start')+' '+wynik_mnozenia['b']+' '+tagger.taguj(wynik_mnozenia['c'],'regula_stop')+' '+wynik_mnozenia['d']+' '+tagger.taguj('w przeciwnym wypadku', 'w_przeciwnym_wypadku')+' '+wynik_mnozenia['d']+' .')
     wynik = pd.Series(
-        tagger.taguj(wynik_mnozenia['a'], 'regula_start') + ' ' + wynik_mnozenia['b'] + ' ' + tagger.taguj(
-            wynik_mnozenia['c'], 'regula_stop') + ' ' + wynik_mnozenia['d'] +' .')
+        tagger.taguj(wynik_mnozenia['a'], 'SK_SW') + ' ' + wynik_mnozenia['b'] + ' ' + tagger.taguj(
+            wynik_mnozenia['c'], 'SK_KW') + ' ' + wynik_mnozenia['d'] +' .')
 
     print("Ilość rekordów w próbce przed dodaniem ELSE=>" + str(len(wynik)))
 
 
 
-    w_przeciwnym_otagowane = pd.Series(tagger.taguj(W_PRZECIWNYM_WYPADKU, 'w_przeciwnym_wypadku'))
+    w_przeciwnym_otagowane = pd.Series(tagger.taguj(W_PRZECIWNYM_WYPADKU, 'SK_SAN'))
     w_przeciwnym_x_akcje=narzedzia.wylicz_iloczyn_kartezjanski([w_przeciwnym_otagowane,AKCJE],['a','b'])
     w_przeciwnym_x_akcje_wyplaszczone=pd.Series(w_przeciwnym_x_akcje['a']+' '+w_przeciwnym_x_akcje['b'])
 
 
 
-    wynik_kopia = pd.Series(tagger.taguj(wynik_mnozenia['a'], 'regula_start') + ' ' + wynik_mnozenia['b'] + ' ' + tagger.taguj(wynik_mnozenia['c'], 'regula_stop') + ' ' + wynik_mnozenia['d'])
+    wynik_kopia = pd.Series(tagger.taguj(wynik_mnozenia['a'], 'SK_SW') + ' ' + wynik_mnozenia['b'] + ' ' + tagger.taguj(wynik_mnozenia['c'], 'SK_SW') + ' ' + wynik_mnozenia['d'])
     reguly_x_w_przeciwnym=narzedzia.wylicz_iloczyn_kartezjanski([wynik_kopia,w_przeciwnym_x_akcje_wyplaszczone],['a','b'])
     wynik_w_przeciwny_wyplaszczony=pd.Series(reguly_x_w_przeciwnym['a']+' '+reguly_x_w_przeciwnym['b']+' .')
     wynik_w_przeciwny_wyplaszczony_probka=wynik_w_przeciwny_wyplaszczony.sample(n=4000)

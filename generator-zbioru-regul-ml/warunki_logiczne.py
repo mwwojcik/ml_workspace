@@ -43,13 +43,13 @@ def utworz_warunki_czy_null():
 def utworz_warunki_laczone(warunki_pojedyncze:pd.Series):
     warunki_lewa_strona=warunki_pojedyncze.copy()
     warunki_prawa_strona=warunki_pojedyncze.copy()
-    operatory_logiczne_otagowane=pd.Series(OPERATORY_LOGICZNE.apply(lambda x:tagger.taguj(x,'operator_logiczny')))
+    operatory_logiczne_otagowane=pd.Series(OPERATORY_LOGICZNE.apply(lambda x:tagger.taguj(x,'OPR_LOG')))
     wynik_mnozenia=narzedzia.wylicz_iloczyn_kartezjanski([warunki_lewa_strona, operatory_logiczne_otagowane, warunki_prawa_strona],['a','b','c'])
     #splaszczam i wybieram losowo n elementow gdzie n to dlugosc wektora WE
     return pd.Series(wynik_mnozenia['a']+' '+wynik_mnozenia['b']+' '+wynik_mnozenia['c']).sample(n=4*len(warunki_pojedyncze))
 
 def utworz_warunki():
-    warunki_pojedyncze_otagowane=pd.Series(tagger.taguj('xxx','porowanie_OL')+' '+wynik.apply(lambda x:tagger.taguj(x,'operator_porownania'))+' '+tagger.taguj('xxx','porowanie_OP'))
+    warunki_pojedyncze_otagowane=pd.Series(tagger.taguj('xxx','OP_L')+' '+wynik.apply(lambda x:tagger.taguj(x,'OPR_REL'))+' '+tagger.taguj('xxx','OP_P'))
     print("warunki_pojedyncze_otagowane(ilosc_elem)"+str(len(warunki_pojedyncze_otagowane)))
     #return warunki_pojedyncze_otagowane
     warunki_laczone_otagowane=utworz_warunki_laczone(warunki_pojedyncze_otagowane)
