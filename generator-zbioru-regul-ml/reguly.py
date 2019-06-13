@@ -5,40 +5,70 @@ import narzedzia
 import random
 
 
-
+'''
+*******************************
+*******************************
+Początek obslugi stalych wektorow
+*******************************
+*******************************
+'''
 START_REGULY=pd.Series(['jeśli','gdy','jeżeli'])
-
 KONIEC_REGULY=pd.Series(['wtedy','to'])
-
 W_PRZECIWNYM_WYPADKU=pd.Series(['w przeciwnym wypadku'])
+AKCJE=akcje.utworz_akcje()
+'''
+*******************************
+*******************************
+Koniec obslugi stalych wektorow
+*******************************
+*******************************
+'''
+
 
 def utworz_reguly(aFrazyWarunkow:pd.Series):
 
-    AKCJE=akcje.utworz_akcje()
-
-    wynik_mnozenia=narzedzia.wylicz_iloczyn_kartezjanski([START_REGULY, aFrazyWarunkow, KONIEC_REGULY,AKCJE],['a','b','c','d'])
+    WYNIK_MNOZENIA_SKLADOWYCH_REGULY=narzedzia.wylicz_iloczyn_kartezjanski([START_REGULY, aFrazyWarunkow, KONIEC_REGULY,AKCJE],['a','b','c','d'])
     # wypłaszczenie
-    #wynik = pd.Series(tagger.taguj(wynik_mnozenia['a'],'regula_start')+' '+wynik_mnozenia['b']+' '+tagger.taguj(wynik_mnozenia['c'],'regula_stop')+' '+wynik_mnozenia['d']+' '+tagger.taguj('w przeciwnym wypadku', 'w_przeciwnym_wypadku')+' '+wynik_mnozenia['d']+' .')
-    wynik = pd.Series(
-        tagger.taguj(wynik_mnozenia['a'], 'SK_SW') + ' ' + wynik_mnozenia['b'] + ' ' + tagger.taguj(
-            wynik_mnozenia['c'], 'SK_KW') + ' ' + wynik_mnozenia['d'] +' .').sample(80000)
+    REGULY = pd.Series(
+        tagger.taguj(WYNIK_MNOZENIA_SKLADOWYCH_REGULY['a'], 'SK_SW') + ' ' + WYNIK_MNOZENIA_SKLADOWYCH_REGULY['b'] + ' ' + tagger.taguj(
+            WYNIK_MNOZENIA_SKLADOWYCH_REGULY['c'], 'SK_KW') + ' ' + WYNIK_MNOZENIA_SKLADOWYCH_REGULY['d'] +' .')
 
-    print("Ilość rekordów w próbce przed dodaniem ELSE=>" + str(len(wynik)))
-
-
-    w_przeciwnym_otagowane = pd.Series(tagger.taguj(W_PRZECIWNYM_WYPADKU, 'SK_SAN'))
-    w_przeciwnym_x_akcje=narzedzia.wylicz_iloczyn_kartezjanski([w_przeciwnym_otagowane,AKCJE],['a','b'])
-    w_przeciwnym_x_akcje_wyplaszczone=pd.Series(w_przeciwnym_x_akcje['a']+' '+w_przeciwnym_x_akcje['b'])
+    print("Ilość rekordów w próbce przed dodaniem ELSE=>" + str(len(REGULY)))
 
 
 
-    wynik_kopia = pd.Series(tagger.taguj(wynik_mnozenia['a'], 'SK_SW') + ' ' + wynik_mnozenia['b'] + ' ' + tagger.taguj(wynik_mnozenia['c'], 'SK_SW') + ' ' + wynik_mnozenia['d']).sample(10000)
-    reguly_x_w_przeciwnym=narzedzia.wylicz_iloczyn_kartezjanski([wynik_kopia,w_przeciwnym_x_akcje_wyplaszczone],['a','b'])
-    wynik_w_przeciwny_wyplaszczony=pd.Series(reguly_x_w_przeciwnym['a']+' '+reguly_x_w_przeciwnym['b']+' .')
+
+    CZESC_ELSE_OTAGOWANA = pd.Series(tagger.taguj(W_PRZECIWNYM_WYPADKU, 'SK_SAN'))
+    CZESC_ELSE_OTAGOWANA_X_AKCJE = narzedzia.wylicz_iloczyn_kartezjanski([CZESC_ELSE_OTAGOWANA, AKCJE], ['a', 'b'])
+    CZESC_ELSE_OTAGOWANA_X_AKCJE_WYNIK = pd.Series(
+        CZESC_ELSE_OTAGOWANA_X_AKCJE['a'] + ' ' + CZESC_ELSE_OTAGOWANA_X_AKCJE['b'])
+
+    print("Ilość CZESC_ELSE_OTAGOWANA_X_AKCJE_WYNIK=>" + str(len(CZESC_ELSE_OTAGOWANA_X_AKCJE_WYNIK)))
+
+    # tworze sobie kopie wektora regul by wzbogacic go o czesc ELSE
+    REGULY_KOPIA = pd.Series(
+        tagger.taguj(WYNIK_MNOZENIA_SKLADOWYCH_REGULY['a'], 'SK_SW') + ' ' + WYNIK_MNOZENIA_SKLADOWYCH_REGULY[
+            'b'] + ' ' + tagger.taguj(
+            WYNIK_MNOZENIA_SKLADOWYCH_REGULY['c'], 'SK_KW') + ' ' + WYNIK_MNOZENIA_SKLADOWYCH_REGULY['d'] + ' ')
+    print("Ilość REGULY_KOPIA=>" + str(len(REGULY_KOPIA)))
+
+    REGULY_KOPIA_X_CZESC_ELSE_OTAGOWANA_X_AKCJE = narzedzia.wylicz_iloczyn_kartezjanski([REGULY_KOPIA, CZESC_ELSE_OTAGOWANA_X_AKCJE_WYNIK],['a', 'b'])
+    REGULY_KOPIA_X_Z_CZESCIA_ELSE_WYNIK = pd.Series(REGULY_KOPIA_X_CZESC_ELSE_OTAGOWANA_X_AKCJE['a'] + ' ' + REGULY_KOPIA_X_CZESC_ELSE_OTAGOWANA_X_AKCJE['b'] + ' .')
+    print("Ilość REGULY_KOPIA_X_Z_CZESCIA_ELSE_WYNIK=>" + str(len(REGULY_KOPIA_X_Z_CZESCIA_ELSE_WYNIK)))
+
+    REGULY_POLACZONE=REGULY.append(REGULY_KOPIA_X_Z_CZESCIA_ELSE_WYNIK, ignore_index=True)
+    print("Ilość REGULY_POLACZONE=>" + str(len(REGULY_POLACZONE)))
+    return REGULY_POLACZONE
+'''
+   
+
+
+
+    
+
 
 
     wynik_laczony=wynik.append(wynik_w_przeciwny_wyplaszczony.sample(30000), ignore_index=True)
-
-    print("Ilość rekordów w próbce=>" + str(len(wynik)))
+'''
+    #print("Ilość rekordów w próbce=>" + str(len(wynik)))
     #return wynik_laczony
-    return wynik

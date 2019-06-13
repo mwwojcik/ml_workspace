@@ -3,34 +3,55 @@ import opennlptagger as tagger
 from narzedzia import podaj_dwuwymiarowy_iloczyn_kartezjanski
 import narzedzia
 
-
+'''
+*******************************
+*******************************
+Początek obslugi wektorow stalych
+*******************************
+*******************************
+'''
 OPERATORY_ZAPRZECZENIA=pd.Series(['nie'])
-
 OPERATORY_POROWNANIA_PODSTAWOWE = pd.Series(['jest równy' ,'jest równa', 'jest równe'])
-OPERATORY_POROWNANIA_STOPNIOWANE = pd.Series(['jest większy', 'jest mniejszy', 'jest różny','jest większa', 'jest mniejsza', 'jest różna','jest większe', 'jest mniejsze', 'jest różne'])
 
+OPERATORY_POROWNANIA_STOPNIOWANE = pd.Series(['jest większy',
+                                              'jest mniejszy',
+                                              'jest różny',
+                                              'jest większa',
+                                              'jest mniejsza',
+                                              'jest różna',
+                                              'jest większe',
+                                              'jest mniejsze',
+                                              'jest różne'])
 OPERATORY_STOPNIOWANIA = pd.Series(['niż', 'od'])
-operatory_stopniowane=podaj_dwuwymiarowy_iloczyn_kartezjanski(OPERATORY_POROWNANIA_STOPNIOWANE, OPERATORY_STOPNIOWANIA)
+OPERATORY_POSTOPNIOWANE=podaj_dwuwymiarowy_iloczyn_kartezjanski(OPERATORY_POROWNANIA_STOPNIOWANE, OPERATORY_STOPNIOWANIA)
 
 
-
+#łączenie operatorów podstawowych z wystponiowanymi
 #splaszczenie
-wynik=pd.Series(operatory_stopniowane['a']+' '+operatory_stopniowane['b'])
-
-
-
+WYNIK=pd.Series(OPERATORY_POSTOPNIOWANE['a'] + ' ' + OPERATORY_POSTOPNIOWANE['b'])
 # dodaje operatory podstawowe
-wynik = wynik.append(OPERATORY_POROWNANIA_PODSTAWOWE,ignore_index=True)
+WYNIK = WYNIK.append(OPERATORY_POROWNANIA_PODSTAWOWE, ignore_index=True)
 
-zaprzeczenia=podaj_dwuwymiarowy_iloczyn_kartezjanski(OPERATORY_ZAPRZECZENIA, wynik)
+#
+ZAPRZECZENIA=podaj_dwuwymiarowy_iloczyn_kartezjanski(OPERATORY_ZAPRZECZENIA, WYNIK)
 #splaszczenie
-zaprzeczenia_wynik=pd.Series(zaprzeczenia['a']+' '+zaprzeczenia['b'])
-
-wynik=wynik.append(zaprzeczenia_wynik,ignore_index=True)
-
-print(str(wynik))
+OPERATORY_ZAPRZECZONE=pd.Series(ZAPRZECZENIA['a'] + ' ' + ZAPRZECZENIA['b'])
+#dolaczenie do wyniku
+WYNIK=WYNIK.append(OPERATORY_ZAPRZECZONE, ignore_index=True)
 
 OPERATORY_LOGICZNE=pd.Series(["lub","oraz","i"])
+print(str(WYNIK))
+
+'''
+*******************************
+*******************************
+Początek obslugi wektorow stalych
+*******************************
+*******************************
+'''
+
+
+
 
 def utworz_warunki_czy_null():
     OPERATORY_CZY_NULL=pd.Series([   "jest puste","nie jest puste","jest niepuste"
@@ -52,17 +73,16 @@ def utworz_warunki_laczone(warunki_pojedyncze:pd.Series):
     return pd.Series(wynik_mnozenia['a']+' '+wynik_mnozenia['b']+' '+wynik_mnozenia['c'])#.sample(n=4*len(warunki_pojedyncze))
 
 def utworz_warunki():
-
-    warunki_pojedyncze_otagowane=pd.Series(tagger.taguj('xxx','OP_L')+' '+wynik.apply(lambda x:tagger.taguj(x,'OPR_REL'))+' '+tagger.taguj('xxx','OP_P'))
+    warunki_pojedyncze_otagowane=pd.Series(tagger.taguj('xxx','OP_L') +' ' + WYNIK.apply(lambda x:tagger.taguj(x, 'OPR_REL')) + ' ' + tagger.taguj('xxx', 'OP_P'))
     print("warunki_pojedyncze_otagowane(ilosc_elem)"+str(len(warunki_pojedyncze_otagowane)))
 
-    warunki_laczone_otagowane = utworz_warunki_laczone(warunki_pojedyncze_otagowane)
-    print("warunki_laczone_otagowane(ilosc_elem)" + str(len(warunki_laczone_otagowane)))
+    #warunki_laczone_otagowane = utworz_warunki_laczone(warunki_pojedyncze_otagowane)
+    #print("warunki_laczone_otagowane(ilosc_elem)" + str(len(warunki_laczone_otagowane)))
 
-    warunki_razem = warunki_pojedyncze_otagowane.append(
-        warunki_laczone_otagowane)  # .append(warunki_czy_null_otagowane).append(warunki_czy_null_laczone)
-    print("warunki_razem(ilosc_elem)" + str(len(warunki_razem)))
-    return warunki_razem
+   # warunki_razem = warunki_pojedyncze_otagowane.append(
+    #    warunki_laczone_otagowane)  # .append(warunki_czy_null_otagowane).append(warunki_czy_null_laczone)
+   # print("warunki_razem(ilosc_elem)" + str(len(warunki_razem)))
+    return warunki_pojedyncze_otagowane
 
 
     '''
